@@ -1,12 +1,33 @@
 <?php
 
-function power($val,$pow){
-    if ($pow <= 1){
-        return $val;
-    }
-    return $val *= pow($val,$pow -1);
+$myList = ['Программы' => 
+                [
+                    'Программирование',
+                    'Веб разработка',
+                    'Анализ данных',
+                    'Мобильная разработка',
+                    'Тестирование'
+                ],
+            
+            'База знаний' => 
+                [
+                    'Все статьи',
+                    'Форум',
+                    'Истории успеха'
+                ],
+            
+            'Поиск работы' => 
+                [
+                    'Трудоустройство',
+                    'Компании',
+                    'Вакансии'
+                ]
+            ];
+
+
+foreach($myList as $menu => $submenus){
+        echo "<ul>$menu</ul>";
+        foreach($submenus as $submenu){
+            echo "<li><a href='#'>$submenu</a></li>";
+        }
 }
-
-echo power(4,3);
-
-?>

@@ -8,7 +8,10 @@ $myArray = ["Московская область:" => ['Москва','Зеле�
 foreach($myArray as $region => $towns){
     echo("$region <br>");
     foreach($towns as $town){
-        echo("$town, ");
+        if (mb_substr($town, 0, 1) == "К") {
+            echo "$town ";
+        }
+        
     };
     echo('<br>');
 };

@@ -1,14 +1,10 @@
 <?php 
 
-$a = -7;
-$b = 0;
+$i = 0;
 
-if($a >= 0 && $b >= 0){
-    echo $a - $b;
-}else if($a < 0 && $b < 0){
-    echo $a * $b;
-}else{
-    echo $a + $b;
+while($i <= 100){
+    if ($i % 3 == 0 && $i != 0){
+        echo "$i <br>";
+    }      
+    $i++;
 }
-
-?>
