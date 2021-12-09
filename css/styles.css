@@ -1,0 +1,32 @@
+body {
+    background: no-repeat url("../images/background/background.jpg");
+    padding-top: 2%;
+    color: silver;
+    font-weight: 100;
+}
+
+.container {
+    border: solid 2px silver;
+    margin: auto;
+    padding-top: 5px;
+    padding-bottom: 45px;
+    padding-left: 5%;
+    
+}
+
+img {
+    border: solid 5px silver;
+    margin-top: 25px;
+}
+
+img:hover{
+    border: solid 5px purple; 
+}
+
+.row {
+    padding-top: 15px;
+}
+
+.btn:hover{
+    background-color: purple;
+}
