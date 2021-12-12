@@ -1,15 +1,18 @@
 <?php
-    $images = scandir("images/big");
+    ini_set("display_errors",1);
+    include_once("config.php");
+
+    $sql = "SELECT * FROM gallery ORDER BY Views DESC";
+    $table = mysqli_query($connect, $sql)
 ?>
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <link href="css/lightbox.min.css" rel="stylesheet" />
     <link rel="stylesheet"  href="css/styles.css"/>
     <title>Галерея</title>
 </head>
@@ -21,26 +24,15 @@
 <div class="container">
     <div class="row">
         <?php
-        for ($i = 2; $i < count($images); $i++):?>
+
+        
+        while($data = mysqli_fetch_assoc($table)) :?>
         <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a id="single_image" class="thumbnail" data-lightbox="imgGLR roadtrip" href="images/big/<?=$images[$i]?>">
-                <img class="img-responsive" border="0" src="images/small/<?=$images[$i]?>"/>
+            <a class="thumbnail" target="_blank" href="full_image.php?id=<?=$data['id']?>" data-lightbox="imgGLR" >
+                <img class="img-responsive" border="0" src="images/small/<?=$data['Name']?>"/>
             </a>
         </div> 
-        
-        <?php
-        endfor;
-        ?> 
+        <?php endwhile;?> 
     </div>
-        <br>
-    <div class="row">
-    <form action="settings/upload.php" method="post" enctype="multipart/form-data">
-            <input  class="custom-file-input"type="file" name="userImage" require>
-            <br>
-            <br>
-            <button type="sumbit" name="send" class="btn btn-secondary">Загрузить</button>
-        </form>
-    </div>
-    <script src="js/lightbox-plus-jquery.min.js"></script>
 </body>
 </html>
