@@ -1,8 +1,48 @@
-<link rel="stylesheet"  href="css/styles.css"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>File upload</title>
+	<link rel="stylesheet"  href="css/styles.css"/>
+</head>
+<body>
+<style>
+	body {
+		color: lightgreen;
+	}
+</style>
 <?php
 
 
+
 $path = "images/big/{$_FILES['userImage']['name']}";
+$pathSmall = "images/small/{$_FILES['userImage']['name']}";
+
+
+function resizeImage($h, $w, $src, $newsrc, $type) {
+    $newimg = imagecreatetruecolor($h, $w);
+    switch ($type) {
+      case 'jpeg':
+        $img = imagecreatefromjpeg($src);
+        imagecopyresampled($newimg, $img, 0, 0, 0, 0, $h, $w, imagesx($img), imagesy($img));
+        imagejpeg($newimg, $newsrc);
+        break;
+      case 'png':
+        $img = imagecreatefrompng($src);
+        imagecopyresampled($newimg, $img, 0, 0, 0, 0, $h, $w, imagesx($img), imagesy($img));
+        imagepng($newimg, $newsrc);
+        break;
+      case 'gif':
+        $img = imagecreatefromgif($src);
+        imagecopyresampled($newimg, $img, 0, 0, 0, 0, $h, $w, imagesx($img), imagesy($img));
+        imagegif($newimg, $newsrc);
+        break;
+    }
+}
+
+
 
 if (isset($_POST['send'])) {
 	if ($_FILES['userImage']['error']) {
@@ -15,6 +55,8 @@ if (isset($_POST['send'])) {
 		$_FILES['userImage']['type'] == 'image/gif' 
 		) {
 			if (move_uploaded_file($_FILES['userImage']['tmp_name'], $path)){
+				$type = explode('/', $_FILES['userImage']['type'])[1];
+				resizeImage(200, 150, $path, $pathSmall, $type);
 				echo "Файл успешно загружен!";
 			}else {
 				echo "Ошибка загрузки файла!";
@@ -27,3 +69,7 @@ if (isset($_POST['send'])) {
 header('Refresh: 5; url="index.php"');
 
 ?>
+
+
+</body>
+</html>
